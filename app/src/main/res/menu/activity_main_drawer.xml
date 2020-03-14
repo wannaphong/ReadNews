@@ -34,5 +34,17 @@
                 android:title="@string/menu_send" />
         </menu>
     </item>
+    <item android:title="A">
+        <menu>
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_login" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/menu_logout" />
+        </menu>
+    </item>
 
 </menu>

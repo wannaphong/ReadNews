@@ -1,9 +1,12 @@
 package th.ac.kku.cis.mobileapp.readnews
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.Menu
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -24,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.android.synthetic.main.nav_header_main.*
+import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
@@ -148,6 +151,7 @@ class MainActivity : AppCompatActivity() {
         val navUsername:TextView = headerView.findViewById(R.id.UserName) as TextView
         val navEmail: TextView = headerView.findViewById(R.id.Email) as TextView
         val nav_Menu: Menu = navigationView.getMenu()
+        val v:ImageView =  headerView.findViewById(R.id.imageView) as ImageView
         if(user==null){
             navUsername.text = "Not Found"
 
@@ -155,14 +159,18 @@ class MainActivity : AppCompatActivity() {
             nav_Menu.findItem(R.id.nav_login ).setVisible(true)
 
             nav_Menu.findItem(R.id.nav_logout ).setVisible(false)
-
+            Picasso.get().load(R.drawable.ic_menu_camera).into(v)
             nav_Menu.findItem(R.id.nav_gallery ).setVisible(false)
             nav_Menu.findItem(R.id.nav_slideshow ).setVisible(false)
         }
         else{
+            val xx: Uri? = FirebaseAuth.getInstance().currentUser!!.photoUrl
+
+            Picasso.get().load(xx).into(v)
             nav_Menu.findItem(R.id.nav_login ).setVisible(!true)
             nav_Menu.findItem(R.id.nav_logout ).setVisible(!false)
             navEmail.text = user.email.toString()
+
             navUsername.text = user.displayName.toString()
             nav_Menu.findItem(R.id.nav_gallery ).setVisible(true)
             nav_Menu.findItem(R.id.nav_slideshow ).setVisible(true)
